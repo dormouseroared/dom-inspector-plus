@@ -1,21 +1,42 @@
 <!-- index.html — testbed for DOM Inspector Plus -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <title>DOM Inspector Plus Demo</title>
+  <title>DOM Inspector Plus</title>
   <script src="inspector.js" defer></script>
   <style>
-    body { font-family: sans-serif; padding: 2rem; }
-    input, button, img { display: block; margin-bottom: 1rem; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    input,
+    button,
+    img,
+    a {
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: #06c;
+    }
   </style>
 </head>
+
 <body>
-  <h1>Try Clicking These Elements:</h1>
-  <input type="text" placeholder="Enter name" />
+  <h1>🔎 DOM Inspector Plus Testbed</h1>
+  <input type="text" placeholder="Enter your name..." />
   <input type="checkbox" checked /> Remember me
   <button disabled>Disabled button</button>
-  <img src="https://placekitten.com/200/200" alt="Kitten" width="200" />
-  <a href="https://developer.mozilla.org/">Visit MDN</a>
+  <img src="https://placebear.com/200/200" alt="Bear" width="200" />
+  <a href="https://developer.mozilla.org/" target="_blank">Visit MDN</a>
 </body>
+
 </html>
