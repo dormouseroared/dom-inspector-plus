@@ -4,6 +4,16 @@ A lightweight, context-aware element inspection tool for web developers — edit
 
 Built by [@dormouseroared](https://github.com/dormouseroared) in collaboration with Copilot.
 
+One day, looking at using TypeScript, I wanted to understand the DOM element types
+that have proved a stumbling block to each previous attempt to learn.
+Devtools didn't help much in terms of an easy to understand prototype chain.
+I asked copilot, and this monster came into being, far ahead of my abilities but
+a great way to learn some new stuff. Have also involved chatgp, and I suspect others too will become involved.
+
+I'm also using git issues for the first time without much clue, and Pull Requests remain a mystery for now.
+
+And now I have a local browser extension. Who'd a thunk it?
+
 ---
 
 ## ✨ Features
