@@ -9,13 +9,13 @@
   if (existing) existing.remove()
 
   const defaultProps = {
-    INPUT: ['id', 'name', 'type', 'value', 'placeholder', 'checked', 'disabled', 'readOnly'],
-    TEXTAREA: ['id', 'name', 'value', 'placeholder', 'readOnly'],
-    BUTTON: ['id', 'name', 'value', 'type', 'disabled', 'innerText'],
-    IMG: ['src', 'alt', 'width', 'height', 'naturalWidth', 'naturalHeight'],
-    A: ['href', 'target', 'download', 'textContent'],
-    SELECT: ['value', 'disabled', 'multiple', 'selectedIndex'],
-    DEFAULT: ['id', 'className', 'innerText', 'textContent']
+    INPUT: ['id', 'name', 'type', 'value', 'placeholder', 'checked', 'disabled', 'readOnly', 'style'],
+    TEXTAREA: ['id', 'name', 'value', 'placeholder', 'readOnly', 'style'],
+    BUTTON: ['id', 'name', 'value', 'type', 'disabled', 'innerText', 'style'],
+    IMG: ['src', 'alt', 'width', 'height', 'naturalWidth', 'naturalHeight', 'style'],
+    A: ['href', 'target', 'download', 'textContent', 'style'],
+    SELECT: ['value', 'disabled', 'multiple', 'selectedIndex', 'style'],
+    DEFAULT: ['id', 'className', 'innerText', 'textContent', 'style']
   }
 
   const presetMap = {
@@ -185,6 +185,14 @@
       let val = '[unavailable]', origin = '[unknown]'
       try {
         val = el[prop]
+        // workaround for inline styles on the actual element
+        // is to use the text version
+        // rather than try to process the object
+        if (prop === "style") {
+          console.log("val el prop:", val, el, prop)
+          val = el.style.cssText
+          if (!val) val = "[none]"
+        }
         origin = getOrigin(el, prop)
         if (typeof val === 'function') val = '[function]'
         else if (Array.isArray(val)) val = `[array] (${val.length})`
@@ -198,7 +206,23 @@
         ? `<a href="${link}" target="_blank" style="color:#0ff;text-decoration:none;line-height:1;margin:0;padding:0;background-color:black">${prop}</a>`
         : `<span style="color:#0ff";line-height:1;margin:0;padding:0>${prop}</span>`
 
-      html += `<div style="display:flex;gap:4px;margin:0;padding:0;line-height:1;font-size:12px">${propHTML}: <span style="color:#0f0">${val}</span> <span style="color:#aaa;font-style:italic">← ${origin}</span></div>`
+      html += `
+        <div style="display:flex;gap:4px;margin:0;padding:0;line-height:1;font-size:12px">
+
+          ${propHTML}
+
+          : 
+
+          <span style="color:#0f0">
+            ${val}
+          </span>
+
+          <span style="color:#aaa;font-style:italic">
+          ← ${origin}
+          </span>
+
+        </div>`
+
       textCopy += `${prop}: ${val} ← ${origin}\n`
     })
 
