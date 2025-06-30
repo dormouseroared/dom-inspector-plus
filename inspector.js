@@ -3,7 +3,7 @@
 
 (function () {
 
-  const version = "1.3"
+  const version = "1.4"
 
   const existing = document.getElementById('editable-inspector')
   if (existing) existing.remove()
