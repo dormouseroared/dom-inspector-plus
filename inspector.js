@@ -2,6 +2,9 @@
 // https://github.com/dormouseroared/dom-inspector-plus
 
 (function () {
+
+  const version = "1.3"
+
   const existing = document.getElementById('editable-inspector')
   if (existing) existing.remove()
 
@@ -52,7 +55,7 @@
 
   const title = document.createElement('div')
   title.style.fontWeight = 'bold'
-  title.textContent = '🔎 DOM Inspector Plus'
+  title.textContent = `🔎 DOM Inspector Plus ${version}`
   header.appendChild(title)
 
   const copyBtn = document.createElement('button')
@@ -104,7 +107,56 @@
 
   const outputBox = document.createElement('div')
   overlay.appendChild(outputBox)
+
   document.body.appendChild(overlay)
+
+  //   const host = document.createElement('div')
+  //   host.id = 'dom-inspector-host'
+  //   host.style.position = 'fixed'
+  //   host.style.bottom = '0'
+  //   host.style.right = '0'
+  //   host.style.zIndex = 2147483647
+
+  //   const shadow = host.attachShadow({ mode: 'open' })
+
+  //   const style = document.createElement('style')
+  //   style.textContent = `
+  //   * {
+  //     all: initial;
+  //     font-family: monospace;
+  //     font-size: 12px;
+  //     color: #0f0;
+  //   }
+
+  //   a {
+  //     color: #0ff;
+  //     text-decoration: none;
+  //   }
+
+  //   button {
+  //     background: #222;
+  //     border: 1px solid #555;
+  //     color: #0f0;
+  //     padding: 2px 6px;
+  //     cursor: pointer;
+  //   }
+
+  //   textarea {
+  //     background: #222;
+  //     border: 1px solid #555;
+  //     color: #0f0;
+  //     padding: 4px;
+  //     border-radius: 4px;
+  //   }
+
+  //   div {
+  //     line-height: 1.2;
+  //   }
+  // `
+  //   shadow.appendChild(style)
+  //   shadow.appendChild(overlay)
+  //   document.body.appendChild(host)
+
 
   let lastEl = null
 
@@ -143,7 +195,7 @@
 
       const link = mdnLink(origin, prop)
       const propHTML = link
-        ? `<a href="${link}" target="_blank" style="color:#0ff;text-decoration:none;line-height:1;margin:0;padding:0">${prop}</a>`
+        ? `<a href="${link}" target="_blank" style="color:#0ff;text-decoration:none;line-height:1;margin:0;padding:0;background-color:black">${prop}</a>`
         : `<span style="color:#0ff";line-height:1;margin:0;padding:0>${prop}</span>`
 
       html += `<div style="display:flex;gap:4px;margin:0;padding:0;line-height:1;font-size:12px">${propHTML}: <span style="color:#0f0">${val}</span> <span style="color:#aaa;font-style:italic">← ${origin}</span></div>`
