@@ -52,7 +52,7 @@
   const header = document.createElement('div')
   header.style.display = 'flex'
   header.style.justifyContent = 'space-between'
-  header.style.alignItems = 'center'
+  header.style.alignItems = 'start'
   header.style.marginBottom = '6px'
 
   // --- Create Title <div> within Header
