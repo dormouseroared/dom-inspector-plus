@@ -15,6 +15,16 @@ I'm also using git issues for the first time without much clue, and Pull Request
 And now I have a local browser extension. Who'd a thunk it?
 
 ---
+Notes to self:
+- this repo is about experimenting, learning and being OK with edge cases that aren't completely covered
+- it is about being ok with the code that's here and being able to make it useful
+- useful is helping with getting to grips with TypeScript, JavaScript, DOM, CSS-in-JS
+- whilst it was great to get to grips with a real live browser extension that is a whole other game
+- be happy just to copy and paste the IIFE into a console session and learn more about how things are configured
+- and just refresh and start again if needed
+- using AI tools like copilot, gemini, grok and chatgpt is very useful for the solo hobbyist but requires effort to go through what has been generated and solidify the understanding
+- the key difference to using youtube, books, courses, etc is that a specific question can be asked and the answers are quick and detailed and tailored, rather than following someone else's path that may meander through and around there question if we are lucky
+---
 
 ## ✨ Features
 
