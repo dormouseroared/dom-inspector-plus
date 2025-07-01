@@ -3,13 +3,13 @@
 
 (function () {
 
-  const version = "1.4"
+  const version = "1.5 <exitButton>"
 
   const existing = document.getElementById('editable-inspector')
   if (existing) existing.remove()
 
   const defaultProps = {
-    INPUT: ['id', 'name', 'type', 'value', 'placeholder', 'checked', 'disabled', 'readOnly', 'style'],
+    INPUT: ['id', 'name', 'type', 'value', 'placeholder', 'checked', 'disabled', 'readOnly', 'required', 'style'],
     TEXTAREA: ['id', 'name', 'value', 'placeholder', 'readOnly', 'style'],
     BUTTON: ['id', 'name', 'value', 'type', 'disabled', 'innerText', 'style'],
     IMG: ['src', 'alt', 'width', 'height', 'naturalWidth', 'naturalHeight', 'style'],
@@ -27,6 +27,7 @@
   const storageKey = 'copilotInspectorPrefs'
   const userPrefs = JSON.parse(localStorage.getItem(storageKey) || '{}')
 
+  // --- Create Overlay <div>
   const overlay = document.createElement('div')
   overlay.id = 'editable-inspector'
   Object.assign(overlay.style, {
@@ -47,17 +48,25 @@
     boxShadow: '0 0 10px #000'
   })
 
+  // --- Create Header <div>
   const header = document.createElement('div')
   header.style.display = 'flex'
   header.style.justifyContent = 'space-between'
   header.style.alignItems = 'center'
   header.style.marginBottom = '6px'
 
+  // --- Create Title <div> within Header
   const title = document.createElement('div')
   title.style.fontWeight = 'bold'
   title.textContent = `🔎 DOM Inspector Plus ${version}`
   header.appendChild(title)
 
+  // --- Create Buttons <div> container
+  const buttonGroup = document.createElement('div')
+  buttonGroup.style.display = "flex"
+  buttonGroup.style.gap = "4px"
+
+  // --- Create Copy <button>
   const copyBtn = document.createElement('button')
   copyBtn.textContent = '📋 Copy'
   copyBtn.style.background = '#222'
@@ -65,11 +74,23 @@
   copyBtn.style.color = '#0f0'
   copyBtn.style.padding = '2px 6px'
   copyBtn.style.cursor = 'pointer'
-  copyBtn.style.marginLeft = '8px'
-  header.appendChild(copyBtn)
 
+  // --- Create Exit <button>
+  const exitBtn = document.createElement('button')
+  exitBtn.textContent = '❌ Exit'
+  exitBtn.style.background = '#222'
+  exitBtn.style.border = '1px solid #555'
+  exitBtn.style.color = '#f55'
+  exitBtn.style.padding = '2px 6px'
+  exitBtn.style.cursor = 'pointer'
+
+  // --- Add buttons to the header
+  buttonGroup.appendChild(copyBtn)
+  buttonGroup.appendChild(exitBtn)
+  header.appendChild(buttonGroup)
   overlay.appendChild(header)
 
+  //  --- create selectPreset <select> for form fields
   const selectPreset = document.createElement('select')
   selectPreset.style.width = '100%'
   selectPreset.style.marginBottom = '6px'
@@ -109,6 +130,16 @@
   overlay.appendChild(outputBox)
 
   document.body.appendChild(overlay)
+
+  exitBtn.onclick = () => {
+    const el = document.getElementById("editable-inspector")
+    if (el) {
+      el.remove()
+    }
+
+    document.removeEventListener("click", globalClickHandler, true)
+
+  }
 
   //   const host = document.createElement('div')
   //   host.id = 'dom-inspector-host'
@@ -253,11 +284,15 @@
     inputBox.dispatchEvent(new Event('input'))
   })
 
-  document.addEventListener('click', function (e) {
+  // more explicit definition, also allows removal later
+  function globalClickHandler(e) {
     if (overlay.contains(e.target)) return
     e.preventDefault()
     e.stopPropagation()
     lastEl = e.target
     inspect(lastEl)
-  }, true)
+  }
+
+  document.addEventListener("click", globalClickHandler, true)
+
 })()
