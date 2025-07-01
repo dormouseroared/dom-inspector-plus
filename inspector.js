@@ -3,7 +3,7 @@
 
 (function () {
 
-  const version = "1.5 <exitButton>"
+  const version = "1.6"
 
   const existing = document.getElementById('editable-inspector')
   if (existing) existing.remove()
@@ -131,15 +131,7 @@
 
   document.body.appendChild(overlay)
 
-  exitBtn.onclick = () => {
-    const el = document.getElementById("editable-inspector")
-    if (el) {
-      el.remove()
-    }
 
-    document.removeEventListener("click", globalClickHandler, true)
-
-  }
 
   //   const host = document.createElement('div')
   //   host.id = 'dom-inspector-host'
@@ -289,6 +281,45 @@
     if (!tag || !defaultProps[tag]) return
     inputBox.value = defaultProps[tag].join(', ')
     inputBox.dispatchEvent(new Event('input'))
+  })
+
+  Object.assign(exitBtn.style, {
+    position: "relative",
+    zIndex: 100000,
+    pointerEvents: "auto"
+  })
+
+  overlay.style.pointerEvents = "auto"
+
+  copyBtn.addEventListener("mouseenter", () => {
+    copyBtn.style.color = "#222"
+    copyBtn.style.background = "#0f0"
+  })
+  copyBtn.addEventListener("mouseleave", () => {
+    copyBtn.style.color = "#0f0"
+    copyBtn.style.background = "#222"
+  })
+
+  exitBtn.addEventListener("mouseenter", () => {
+    exitBtn.style.color = "#222"
+    exitBtn.style.background = "#f55"
+  })
+  exitBtn.addEventListener("mouseleave", () => {
+    exitBtn.style.color = "#f55"
+    exitBtn.style.background = "#222"
+  })
+
+  exitBtn.addEventListener("click", () => {
+    console.log("DOM Inspector exit clicked")
+    const el = document.getElementById("editable-inspector")
+    if (el) {
+      el.remove()
+    }
+
+    document.removeEventListener("click", globalClickHandler, true)
+
+
+    // alert("exit button!")
   })
 
   // more explicit definition, also allows removal later
