@@ -233,6 +233,12 @@
       }
 
       const link = mdnLink(origin, prop)
+      // make it clear this is for inline styles only
+      // leave this until the very last
+      if (prop === "style") {
+        prop = "style (inline)"
+      }
+
       const propHTML = link
         ? `<a href="${link}" target="_blank" style="color:#0ff;text-decoration:none;line-height:1;margin:0;padding:0;background-color:black">${prop}</a>`
         : `<span style="color:#0ff";line-height:1;margin:0;padding:0>${prop}</span>`
@@ -267,6 +273,7 @@
     const list = inputBox.value.split(',').map(p => p.trim()).filter(Boolean)
     userPrefs[tag] = list
     localStorage.setItem(storageKey, JSON.stringify(userPrefs))
+    console.log("inputBox event listener -> inspect(lastEl)", lastEl)
     inspect(lastEl)
   })
 
@@ -285,12 +292,18 @@
   })
 
   // more explicit definition, also allows removal later
+  // the other event listeners are for the overlay
+  // this covers the actual page we are trying to debug
+  // but excluding the overlay
   function globalClickHandler(e) {
     if (overlay.contains(e.target)) return
     e.preventDefault()
     e.stopPropagation()
     lastEl = e.target
-    inspect(lastEl)
+    console.log("global click handler -> inspect(lastEl)", lastEl)
+    // inspect(lastEl)
+    // does this fix the checkbox tick?
+    setTimeout(() => inspect(lastEl), 0)
   }
 
   document.addEventListener("click", globalClickHandler, true)
